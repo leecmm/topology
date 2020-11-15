@@ -679,40 +679,40 @@ export class Topology {
       }
 
       // Move out parent element.
-      const moveOutX = pos.x + 50 > this.parentElem.clientWidth + this.parentElem.scrollLeft;
-      const moveOutY = pos.y + 50 > this.parentElem.clientHeight + this.parentElem.scrollTop;
-      if (!this.options.disableMoveOutParent && (moveOutX || moveOutY)) {
-        this.dispatch('moveOutParent', pos);
+//       const moveOutX = pos.x + 50 > this.parentElem.clientWidth + this.parentElem.scrollLeft;
+//       const moveOutY = pos.y + 50 > this.parentElem.clientHeight + this.parentElem.scrollTop;
+//       if (!this.options.disableMoveOutParent && (moveOutX || moveOutY)) {
+//         this.dispatch('moveOutParent', pos);
 
-        if (this.options.autoExpandDistance > 0) {
-          let resize = false;
-          if (pos.x + 50 > this.divLayer.canvas.clientWidth) {
-            this.canvas.width += this.options.autoExpandDistance;
-            resize = true;
-          }
-          if (pos.y + 50 > this.divLayer.canvas.clientHeight) {
-            this.canvas.height += this.options.autoExpandDistance;
-            resize = true;
-          }
-          if (resize) {
-            this.resize({
-              width: this.canvas.width,
-              height: this.canvas.height,
-            });
-          }
+//         if (this.options.autoExpandDistance > 0) {
+//           let resize = false;
+//           if (pos.x + 50 > this.divLayer.canvas.clientWidth) {
+//             this.canvas.width += this.options.autoExpandDistance;
+//             resize = true;
+//           }
+//           if (pos.y + 50 > this.divLayer.canvas.clientHeight) {
+//             this.canvas.height += this.options.autoExpandDistance;
+//             resize = true;
+//           }
+//           if (resize) {
+//             this.resize({
+//               width: this.canvas.width,
+//               height: this.canvas.height,
+//             });
+//           }
 
-          this.scroll(
-            moveOutX ? this.options.autoExpandDistance / 2 : 0,
-            moveOutY ? this.options.autoExpandDistance / 2 : 0
-          );
-        }
-      }
+//           this.scroll(
+//             moveOutX ? this.options.autoExpandDistance / 2 : 0,
+//             moveOutY ? this.options.autoExpandDistance / 2 : 0
+//           );
+//         }
+//       }
 
-      const moveLeft = pos.x - 100 < this.parentElem.scrollLeft;
-      const moveTop = pos.y - 100 < this.parentElem.scrollTop;
-      if (moveLeft || moveTop) {
-        this.scroll(moveLeft ? -100 : 0, moveTop ? -100 : 0);
-      }
+//       const moveLeft = pos.x - 100 < this.parentElem.scrollLeft;
+//       const moveTop = pos.y - 100 < this.parentElem.scrollTop;
+//       if (moveLeft || moveTop) {
+//         this.scroll(moveLeft ? -100 : 0, moveTop ? -100 : 0);
+//       }
 
       switch (this.moveIn.type) {
         case MoveInType.None:
@@ -728,13 +728,13 @@ export class Topology {
             break;
           }
 
-          const x = pos.x - this.mouseDown.x;
-          const y = pos.y - this.mouseDown.y;
-          if (x || y) {
-            const offset = this.getDockPos(x, y, e.ctrlKey || e.shiftKey || e.altKey);
-            this.activeLayer.move(offset.x ? offset.x : x, offset.y ? offset.y : y);
-            this.needCache = true;
-          }
+//           const x = pos.x - this.mouseDown.x;
+//           const y = pos.y - this.mouseDown.y;
+//           if (x || y) {
+//             const offset = this.getDockPos(x, y, e.ctrlKey || e.shiftKey || e.altKey);
+//             this.activeLayer.move(offset.x ? offset.x : x, offset.y ? offset.y : y);
+//             this.needCache = true;
+//           }
           break;
         case MoveInType.ResizeCP:
           this.activeLayer.resize(this.moveIn.activeAnchorIndex, this.mouseDown, pos);
@@ -812,10 +812,10 @@ export class Topology {
       case MoveInType.Line:
       case MoveInType.LineControlPoint:
         if (e.ctrlKey || e.shiftKey) {
-          this.activeLayer.add(this.moveIn.hoverLine);
+//           this.activeLayer.add(this.moveIn.hoverLine);
           this.dispatch('multi', this.activeLayer.pens);
         } else {
-          this.activeLayer.pens = [this.moveIn.hoverLine];
+//           this.activeLayer.pens = [this.moveIn.hoverLine];
           this.dispatch('line', this.moveIn.hoverLine);
         }
 
@@ -828,7 +828,7 @@ export class Topology {
       // tslint:disable-next-line:no-switch-case-fall-through
       case MoveInType.LineFrom:
       case MoveInType.LineTo:
-        this.activeLayer.pens = [this.moveIn.hoverLine];
+//         this.activeLayer.pens = [this.moveIn.hoverLine];
         this.dispatch('line', this.moveIn.hoverLine);
 
         this.hoverLayer.line = this.moveIn.hoverLine;
@@ -867,7 +867,7 @@ export class Topology {
 
         if (e.ctrlKey || e.shiftKey) {
           if (this.moveIn.hoverNode && this.activeLayer.hasInAll(this.moveIn.hoverNode)) {
-            this.activeLayer.setPens([this.moveIn.hoverNode]);
+//             this.activeLayer.setPens([this.moveIn.hoverNode]);
             this.dispatch('node', this.moveIn.hoverNode);
           } else if (!this.activeLayer.has(this.moveIn.activeNode)) {
             this.activeLayer.add(this.moveIn.activeNode);
@@ -879,14 +879,14 @@ export class Topology {
           }
         } else if (e.altKey) {
           if (this.moveIn.hoverNode) {
-            this.activeLayer.setPens([this.moveIn.hoverNode]);
+//             this.activeLayer.setPens([this.moveIn.hoverNode]);
             this.dispatch('node', this.moveIn.hoverNode);
           } else if (this.moveIn.hoverLine) {
-            this.activeLayer.setPens([this.moveIn.hoverLine]);
+//             this.activeLayer.setPens([this.moveIn.hoverLine]);
             this.dispatch('line', this.moveIn.hoverLine);
           }
         } else if (this.activeLayer.pens.length < 2) {
-          this.activeLayer.setPens([this.moveIn.activeNode]);
+//           this.activeLayer.setPens([this.moveIn.activeNode]);
           this.dispatch('node', this.moveIn.activeNode);
         }
 
